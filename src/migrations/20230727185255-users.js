@@ -2,28 +2,32 @@
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable('Users', {
+    await queryInterface.createTable('users', {
       // allowNull: Define se o campo pode ou não receber um valor null;
       // autoIncrement: Define se o campo vai ter incremento automático;
       // primaryKey: Define se o campo é uma chave primária;
       // type: Define o tipo do campo, por exemplo STRING, INTEGER, DATE, etc. 
       id: {
-      //   allowNull: false,
-      //   autoIncrement: true,
+        allowNull: false,
+        autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
       display_name: {
-        type: Sequelize.VARCHAR
+        allowNull: false,
+        type: Sequelize.STRING
       },
       email: {
-        type: Sequelize.VARCHAR
+        allowNull: false,
+        type: Sequelize.STRING
       },
       password: {
-        type: Sequelize.VARCHAR
+        allowNull: false,
+        type: Sequelize.STRING
       },
       image: {
-        type: Sequelize.VARCHAR
+        allowNull: false,
+        type: Sequelize.STRING
       },
     });
     /**
@@ -35,7 +39,7 @@ module.exports = {
   },
 
   down: async (queryInterface, Sequelize) => {
-    // await queryInterface.dropTable('Users');
+    // await queryInterface.dropTable('users');
     /**
      * Add reverting commands here.
      *
