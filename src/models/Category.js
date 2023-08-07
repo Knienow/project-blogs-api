@@ -7,9 +7,16 @@
 
 const CategoryModel = (sequelize, DataTypes) => {
     const Category = sequelize.define('Category', {
-      id: DataTypes.STRING,
+      id: DataTypes.INTEGER,
       name: DataTypes.STRING,
     });
+
+    Category.associate = (models) => {
+      // define o tipo de relacionamento
+      Category.belongsTo(models.PostCategory,
+          // define qual a foreign key a ser criada
+            { foreignKey: 'id', as: 'category_id' });
+        };
 
     return Category;
   };

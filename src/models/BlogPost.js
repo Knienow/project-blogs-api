@@ -7,13 +7,21 @@
 
 const BlogPostModel = (sequelize, DataTypes) => {
     const BlogPost = sequelize.define('BlogPost', {
-      id: DataTypes.STRING,
+      id: DataTypes.INTEGER,
       title: DataTypes.STRING,
       content: DataTypes.STRING,
-      user_id: DataTypes.STRING,
-      published: DataTypes.STRING,
-      updated: DataTypes.STRING,
+      user_id: DataTypes.INTEGER,
+      published: DataTypes.DATE,
+      updated: DataTypes.DATE,
     });
+
+    BlogPost.associate = (models) => {
+      // define o tipo de relacionamento
+      BlogPost.belongsTo(models.User,
+          // define qual a foreign key a ser criada
+            { foreignKey: 'user_id', as: 'user' });
+        };
+
 
     return BlogPost;
   };

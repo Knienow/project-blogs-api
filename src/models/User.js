@@ -7,12 +7,16 @@
 
 const UserModel = (sequelize, DataTypes) => {
     const User = sequelize.define('User', {
-      id: DataTypes.STRING,
+      id: DataTypes.INTEGER,
       display_name: DataTypes.STRING,
       email: DataTypes.STRING,
       password: DataTypes.STRING,
       image: DataTypes.STRING,
     });
+
+    User.associate = (models) => {
+      User.hasMany(models.BlogPost, { key: 'user_id', as: 'blogPost'});
+    };
 
     return User;
   };

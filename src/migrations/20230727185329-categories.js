@@ -7,28 +7,16 @@ module.exports = {
         autoIncrement: true,
         allowNull: false,
         primaryKey: true,
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
       },
       name: { 
         allowNull: false,
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
       },
     });
-    /**
-     * Add altering commands here.
-     *
-     * Example:
-     * await queryInterface.createTable('users', { id: Sequelize.INTEGER });
-     */
   },
 
   down: async (queryInterface, Sequelize) => {
     await queryInterface.dropTable('categories');
-    /**
-     * Add reverting commands here.
-     *
-     * Example:
-     * await queryInterface.dropTable('users');
-     */
   }
 };
