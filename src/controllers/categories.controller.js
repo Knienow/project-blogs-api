@@ -8,8 +8,17 @@ const categoryVerify = Joi.object({
 
 const createCategory = async (req, res) => {
     const { name } = req.body;
-    
-    if (!name) {
+    const { error } = categoryVerify.validate({ name });
+    if (error) {
+        return res.status(400).json({ message: error.message });
+    }
+
+    const category = await Category.findOne({ where: { name } });
+    if (category) {
+        return res.status(409).json({ message: 'Category already registered' });
+      }
+
+    if (!category) {
         return res.status(400).json({ message: '"name" is required' });
     }
     const newCategory = await Category.create({ name });
