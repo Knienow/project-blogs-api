@@ -60,7 +60,8 @@ const verifyEmptyToken = async (req, res, next) => {
 };
 
 const tokenValidation = async (req, res, next) => {
-  const token = req.headers.authorization;
+  const bearerToken = req.headers.authorization;
+  const token = bearerToken.split(' ')[1];
   console.log('token', token);
   try {
     const decoded = verifyToken(token);
@@ -68,7 +69,8 @@ const tokenValidation = async (req, res, next) => {
     if (!token) {
       return res.status(401).json({ message: 'Token not found' });
     }
-  } catch (err) {
+  } catch (error) {
+    console.log('erro', error);
     return res.status(401).json({ message: 'Expired or invalid token' });
   }
   next();

@@ -13,7 +13,7 @@ const BlogPostModel = (sequelize, DataTypes) => {
       },
       title: DataTypes.STRING,
       content: DataTypes.STRING,
-      user_id: {
+      userId: {
         type: DataTypes.INTEGER,
         foreignKey: true,
       },
