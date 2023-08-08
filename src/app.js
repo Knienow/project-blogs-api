@@ -44,7 +44,7 @@ app.get(
 app.post(
   '/categories', 
   authent.verifyEmptyToken,
-  authent.tokenValidation,
+  authent.tokenValidationWithoutBearer,
   category.createCategory,
 );
 app.get(

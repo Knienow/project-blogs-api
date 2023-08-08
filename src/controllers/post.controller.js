@@ -3,10 +3,10 @@ const { Op } = require('sequelize');
 const { BlogPost, Category, User, PostCategory } = require('../models');
 
 const verifyCategories = async (category) => {
-    const findCategory = await Category.findAll({
-        where: { id: category },
-    });
-    return findCategory;
+  const findCategory = await Category.findAll({
+      where: { id: category },
+  });
+  return findCategory;
 };
 
 const formattedPost = (object) => ({

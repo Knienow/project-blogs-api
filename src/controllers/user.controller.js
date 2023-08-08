@@ -66,8 +66,8 @@ async function verifyUser(req) {
 }
 
 const deleteUser = async (req, res) => {
-    const findMyId = await verifyUser(req);
-    await User.destroy({ where: { id: findMyId } });
+    const findId = await verifyUser(req);
+    await User.destroy({ where: { id: findId } });
     return res.status(204).end();
 };
 

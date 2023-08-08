@@ -76,8 +76,25 @@ const tokenValidation = async (req, res, next) => {
   next();
 };
 
+const tokenValidationWithoutBearer = async (req, res, next) => {
+  const token = req.headers.authorization;
+  console.log('token', token);
+  try {
+    const decoded = verifyToken(token);
+    await verifyUserExists(decoded.email, 'email');
+    if (!token) {
+      return res.status(401).json({ message: 'Token not found' });
+    }
+  } catch (error) {
+    console.log('erro', error);
+    return res.status(401).json({ message: 'Expired or invalid token' });
+  }
+  next();
+};
+
 module.exports = {
   tokenGenerator,
   verifyEmptyToken,
   tokenValidation,
+  tokenValidationWithoutBearer,
 };

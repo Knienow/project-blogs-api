@@ -1,4 +1,10 @@
+// const jwt = require('jsonwebtoken');
+const Joi = require('joi');
 const { Category } = require('../models');
+
+const categoryVerify = Joi.object({
+    name: Joi.string().required(),
+  });
 
 const createCategory = async (req, res) => {
     const { name } = req.body;
