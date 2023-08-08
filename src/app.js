@@ -1,9 +1,15 @@
 const express = require('express');
-const login = require('./controllers/login.controller');
+// const login = require('./controllers/login.controller');
 const user = require('./controllers/user.controller');
 const category = require('./controllers/categories.controller');
 const post = require('./controllers/post.controller');
 const validateToken = require('./token/validateToken');
+const authent = require('./middlewares/authentication');
+const { 
+  validationPassword, 
+  validationEmail, 
+  verifyUserAndPasswordDB, 
+} = require('./middlewares/validationUser');
 
 const app = express();
 
@@ -14,7 +20,14 @@ app.get('/', (_request, response) => {
 
 app.use(express.json());
 
-app.post('/login', login.loginUser);
+app.post(
+  '/login', 
+  validationPassword, 
+  validationEmail, 
+  verifyUserAndPasswordDB, 
+  authent.tokenGenerator,
+  async () => {},
+);
 app.post('/user', user.createUser);
 app.get('/user', validateToken, user.getAllUsers);
 app.get('/user/:id', validateToken, user.getUserById);

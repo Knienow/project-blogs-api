@@ -1,4 +1,4 @@
-const jwtService = require('./generateToken');
+const tokenGenerator = require('./generateToken');
 
 module.exports = (req, res, next) => {
   const token = req.headers.authorization;
@@ -7,7 +7,7 @@ module.exports = (req, res, next) => {
     return res.status(401).json({ message: 'Token not found' });
   }
 
-  const validToken = jwtService.validateToken(token);
+  const validToken = tokenGenerator.validateToken(token);
   if (validToken.message) {
     const { code, message } = validToken;
      return res.status(code).json({ message });

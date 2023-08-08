@@ -1,36 +1,29 @@
-const { User } = require('../models');
-const token = require('../token/generateToken');
+// const { validationPassword, validationEmail /* verifyUserAndPasswordDB */ } = require(
+//     '../middlewares/validationUser',
+// );
+// const token = require('../token/generateToken');
 
-const validationUser = async (email, password) => {
-    const user = await User.findOne({
-        where: { email },
-    });
+// const loginUser = async (req, res) => {
+//     // try {
+//         const { email } = req.body;
+//         const passwordValidated = await validationPassword();
+//         const emailValidated = await validationEmail();
+//         // const userAndPasswordValidated = await verifyUserAndPasswordDB();
 
-    if (!email || !password) {
-        return { code: 400, message: 'Some required fields are missing' };
-    }
-    if (!user) {
-        return { code: 400, message: 'Invalid fields' };
-    }
-    const tokenGenerate = token.createToken(email);
+//         if (passwordValidated.code === 400) {
+//             return res.status(passwordValidated.code).json({ message: passwordValidated.message });
+//         }
+//         if (emailValidated.code === 400) {
+//             return res.status(emailValidated.code).json({ message: emailValidated.message });
+//         }
+//         const tokenGenerate = token.createToken(email);
    
-    return tokenGenerate;
-};
+//         return res.status(200).json({ token: tokenGenerate });
+//     // } catch (error) {
+//     //     return res.status(500).json({ message: error.message });
+//     // }
+// };
 
-const loginUser = async (req, res) => {
-    try {
-        const { email, password } = req.body;
-
-        const userData = await validationUser(email, password);
-        if (userData.code === 400) {
-            return res.status(userData.code).json({ message: userData.message });
-        }
-        return res.status(200).json({ token: userData });
-    } catch (error) {
-        return res.status(500).json({ message: 'error' });
-    }
-};
-
-module.exports = {
-    loginUser,
-};
+// module.exports = {
+//     loginUser,
+// };
