@@ -23,7 +23,7 @@ const CategoryModel = (sequelize, DataTypes) => {
       // define o tipo de relacionamento
       Category.belongsTo(models.PostCategory,
           // define qual a foreign key a ser criada
-            { foreignKey: 'id', as: 'category_id' });
+            { foreignKey: 'id', as: 'categories' });
         };
 
     return Category;
