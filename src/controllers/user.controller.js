@@ -3,6 +3,7 @@ const jwt = require('jsonwebtoken');
 const Joi = require('joi');
 const { User } = require('../models');
 const token = require('../token/generateToken');
+// const UserService = require('../services/user.service');
 
 const userVerify = Joi.object({
   displayName: Joi.string().min(8).required(),
@@ -14,25 +15,36 @@ const userVerify = Joi.object({
 const createUser = async (req, res) => {
   const { displayName, email, password, image } = req.body;
   const { error } = userVerify.validate({ displayName, email, password, image });
-    if (error) {
-      return res.status(400).json({ message: error.message });
-    }
+  if (error) {
+    return res.status(400).json({ message: error.message });
+  }
+
   const user = await User.findOne({ where: { email } });
-    if (user) {
-      return res.status(409).json({ message: 'User already registered' });
-    }
-   if (!user) {
-      await User.create({ displayName, email, password, image });
-      const Newtoken = token.createToken({ email });
-      return res.status(201).json({ token: Newtoken });
-   }
+  if (user) {
+    return res.status(409).json({ message: 'User already registered' });
+  }
+  if (!user) {
+    await User.create({ displayName, email, password, image });
+    const Newtoken = token.createToken({ email });
+    return res.status(201).json({ token: Newtoken });
+  }
 };
 
 const getAllUsers = async (req, res) => {
-  const users = await User.findAll({
-    attributes: { exclude: ['password'] },
-  });
+  try {
+    const users = await User.findAll({
+      attributes: { exclude: ['password'] },
+    });
     return res.status(200).json(users);
+  } catch (error) {
+    console.log(error.message);
+    res.status(401).json({ message: 'Expired or invalid token' });
+  }
+
+  // const users = await User.findAll({
+  //   attributes: { exclude: ['password'] },
+  // });
+  //   return res.status(200).json(users);
 };
 
 const getUserById = async (req, res) => {

@@ -1,7 +1,8 @@
 const tokenGenerator = require('./generateToken');
 
-module.exports = (req, res, next) => {
-  const token = req.headers.authorization;
+module.exports = async (req, res, next) => {
+  const token = await req.headers.authorization;
+  console.log('TOKEN', token);
 
   if (!token) {
     return res.status(401).json({ message: 'Token not found' });

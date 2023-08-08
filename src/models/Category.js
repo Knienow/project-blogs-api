@@ -12,6 +12,11 @@ const CategoryModel = (sequelize, DataTypes) => {
         primaryKey: true,
       }, 
       name: DataTypes.STRING,
+    }, 
+    {
+      tableName: 'categories',
+      timestamps: false,
+      underscored: true,
     });
 
     Category.associate = (models) => {

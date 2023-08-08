@@ -1,27 +1,13 @@
 const jwt = require('jsonwebtoken');
 
-const { JWT_SECRET } = process.env;
+// const { JWT_SECRET } = process.env;
+const secret = process.env.JWT_SECRET;
 const jwtConfig = { 
     expiresIn: '7d',
     algorithm: 'HS256',
 };
 
 const { User } = require('../models');
-
-const verifyToken = (token) => {
-  try {
-    const decoded = jwt.verify(token, JWT_SECRET);
-    return decoded;
-  } catch (err) {
-    throw new Error('Expired or invalid token');
-  }
-};
-
-const verifyUserExists = async (input, field) => {
-  const obj = { [field]: input };
-  const result = await User.findOne({ where: obj });
-  if (result === null || !result) { throw new Error('Expired or invalid token'); }
-};
 
 const verifyUserAndPassword = async (obj) => {
   const data = await User.findOne({ where: obj });
@@ -36,10 +22,26 @@ const tokenGenerator = async (req, res, _next) => {
   const objSearch = { email, password };
   const data = await verifyUserAndPassword(objSearch);
   const { displayName, image } = data;
-  const { code } = req.http;
+  // const { code } = req.http;
   const obj = { displayName, email, image };
-  const token = jwt.sign(obj, JWT_SECRET, jwtConfig);
-  return res.status(code).json({ token });
+  const token = jwt.sign(obj, secret, jwtConfig);
+  return res.status(200).json({ token });
+};
+
+const verifyToken = (token) => {
+  try {
+    const decoded = jwt.verify(token, secret);
+    return decoded;
+  } catch (err) {
+    throw new Error('Expired or invalid token');
+  }
+};
+
+const verifyUserExists = async (input, field) => {
+const obj = { [field]: input };
+const result = await User.findOne({ where: obj });
+console.log('result', result);
+  if (result === null || !result) { throw new Error('Expired or invalid token'); }
 };
 
 // const tokenGenerator = (user) => {
@@ -59,6 +61,7 @@ const verifyEmptyToken = async (req, res, next) => {
 
 const tokenValidation = async (req, res, next) => {
   const token = req.headers.authorization;
+  console.log('token', token);
   try {
     const decoded = verifyToken(token);
     await verifyUserExists(decoded.email, 'email');
