@@ -18,7 +18,9 @@ const validateCreate = async (req, res, next) => {
   }
   const valueValidate = await validateIds(req.body.categoryIds);
 
-  if (!valueValidate.type) res.status(400).json({ message: valueValidate.message });
+  if (!valueValidate.type) {
+    return res.status(400).json({ message: valueValidate.message });
+  }
   next();
 };
 

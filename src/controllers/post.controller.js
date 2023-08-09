@@ -47,6 +47,7 @@ const newPost = async (req, res) => {
     if (!title || !content || !categoryIds) {
       return res.status(400).json({ message: 'Some required fields are missing' });
     }
+    
     const verify = await verifyCategories(categoryIds);
     if (verify.length === 0) {
       return res.status(400).json({ message: '"categoryIds" not found' });
