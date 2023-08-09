@@ -1,5 +1,5 @@
 const Sequelize = require('sequelize');
-const { Op } = require('sequelize');
+// const { Op } = require('sequelize');
 const { BlogPost, PostCategory, User, Category } = require('../models');
 const config = require('../config/config');
 
@@ -47,39 +47,39 @@ const getById = async (id) => {
   return data;
 };
 
-const edit = async (infos, id) => {
-  await BlogPost.update(infos, {
-    where: { id },
-  });
-  const data = await getById(id);
-  return data; 
-};
+// const edit = async (infos, id) => {
+//   await BlogPost.update(infos, {
+//     where: { id },
+//   });
+//   const data = await getById(id);
+//   return data; 
+// };
 
-const deletePost = async (id) => {
-  const data = await BlogPost.destroy({ where: { id } });
-  return data;
-};
+// const deletePost = async (id) => {
+//   const data = await BlogPost.destroy({ where: { id } });
+//   return data;
+// };
 
-const getByQuery = async (q) => {
-  const data = await BlogPost.findAll({ where: {
-    [Op.or]: [
-    { content: { [Op.like]: `%${q}%` } },
-    { title: { [Op.like]: `%${q}%` } }],
-  },
-  include: [
-    { model: User, as: 'user', attributes: { exclude: ['password'] } },
-    { model: Category, as: 'categories', through: { attributes: [] } },
-  ],
-  attributes: { exclude: ['user_id'] },
-  });
-  return data;
-};
+// const getByQuery = async (q) => {
+//   const data = await BlogPost.findAll({ where: {
+//     [Op.or]: [
+//     { content: { [Op.like]: `%${q}%` } },
+//     { title: { [Op.like]: `%${q}%` } }],
+//   },
+//   include: [
+//     { model: User, as: 'user', attributes: { exclude: ['password'] } },
+//     { model: Category, as: 'categories', through: { attributes: [] } },
+//   ],
+//   attributes: { exclude: ['user_id'] },
+//   });
+//   return data;
+// };
 
 module.exports = {
   create,
   getAll,
   getById,
-  edit,
-  deletePost,
-  getByQuery,
+//   edit,
+//   deletePost,
+//   getByQuery,
 };
