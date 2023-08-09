@@ -3,10 +3,6 @@
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     await queryInterface.createTable('users', {
-      // allowNull: Define se o campo pode ou não receber um valor null;
-      // autoIncrement: Define se o campo vai ter incremento automático;
-      // primaryKey: Define se o campo é uma chave primária;
-      // type: Define o tipo do campo, por exemplo STRING, INTEGER, DATE, etc. 
       id: {
         allowNull: false,
         autoIncrement: true,

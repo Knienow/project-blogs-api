@@ -43,11 +43,4 @@ const validateIdPost = async (req, res, next) => {
 //   next();
 // };
 
-// const validateId = async (req, res, next) => {
-//   const { id } = req.params;
-//   const response = await postService.getById(id);
-//   if (!response) return res.status(404).json({ message: 'Post does not exist' });
-//   next();
-// };
-
-module.exports = { validateCreate, validateIdPost /* , validatePut, validateId */ };
+module.exports = { validateCreate, validateIdPost /* , validatePut */ };

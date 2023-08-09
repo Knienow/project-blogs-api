@@ -8,12 +8,9 @@ module.exports = {
         type: Sequelize.INTEGER,
         primaryKey: true,
         references: {
-          // Informa a tabela da referência da associação
           model: 'blog_posts',
-          // Informa a coluna da referência que é a chave correspondente
           key: 'id',
         },
-        // Configuram o que deve acontecer ao atualizar ou excluir um usuário
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE',
       },
@@ -22,12 +19,9 @@ module.exports = {
         type: Sequelize.INTEGER,
         primaryKey: true,
         references: {
-          // Informa a tabela da referência da associação
           model: 'categories',
-          // Informa a coluna da referência que é a chave correspondente
           key: 'id',
         },
-        // Configuram o que deve acontecer ao atualizar ou excluir um usuário
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE',
       },

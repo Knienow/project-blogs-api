@@ -1,9 +1,7 @@
-// const UserService = require('../services/user.service');
 const jwt = require('jsonwebtoken');
 const Joi = require('joi');
 const { User } = require('../models');
 const token = require('../token/generateToken');
-// const UserService = require('../services/user.service');
 
 const userVerify = Joi.object({
   displayName: Joi.string().min(8).required(),
@@ -40,11 +38,6 @@ const getAllUsers = async (req, res) => {
     console.log(error.message);
     res.status(401).json({ message: 'Expired or invalid token' });
   }
-
-  // const users = await User.findAll({
-  //   attributes: { exclude: ['password'] },
-  // });
-  //   return res.status(200).json(users);
 };
 
 const getUserById = async (req, res) => {
@@ -68,20 +61,20 @@ async function verifyUser(req) {
   const { authorization } = req.headers; 
   const decoded = jwt.decode(authorization);
     
- const findId = await User.findOne({ where: { email: decoded.data } });
- return findId.id;
+  const findId = await User.findOne({ where: { email: decoded.data } });
+  return findId.id;
 }
 
 const deleteUser = async (req, res) => {
-    const findId = await verifyUser(req);
-    await User.destroy({ where: { id: findId } });
-    return res.status(204).end();
+  const findId = await verifyUser(req);
+  await User.destroy({ where: { id: findId } });
+  return res.status(204).end();
 };
 
 module.exports = {
-    createUser,
-    getAllUsers,
-    getUserById,
-    getByEmail,
-    deleteUser,
+  createUser,
+  getAllUsers,
+  getUserById,
+  getByEmail,
+  deleteUser,
 };

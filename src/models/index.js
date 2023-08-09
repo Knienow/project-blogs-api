@@ -37,5 +37,3 @@ db.Sequelize = Sequelize;
 module.exports = db;
 
 
-// O arquivo index.js dentro da pasta models possui um papel muito importante: estabelecer 
-// uma instância de conexão entre os arquivos presentes na pasta model e o banco de dados relacional utilizado.

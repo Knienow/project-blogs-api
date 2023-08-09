@@ -1,9 +1,7 @@
 const express = require('express');
-// const login = require('./controllers/login.controller');
 const user = require('./controllers/user.controller');
 const category = require('./controllers/categories.controller');
 const post = require('./controllers/post.controller');
-// const validateToken = require('./token/validateToken');
 const authent = require('./middlewares/authentication');
 const { 
   validationPassword, 
@@ -14,7 +12,6 @@ const postValidation = require('./middlewares/validationPost');
 
 const app = express();
 
-// não remova ou mova esse endpoint
 app.get('/', (_request, response) => {
   response.send();
 });
@@ -98,6 +95,4 @@ app.post(
 //   post.search,
 // );
 
-// É importante exportar a constante `app`,
-// para que possa ser utilizada pelo arquivo `src/server.js`
 module.exports = app;
