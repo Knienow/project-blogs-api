@@ -10,6 +10,7 @@ const {
   validationEmail, 
   verifyUserAndPasswordDB, 
 } = require('./middlewares/validationUser');
+const postValidation = require('./middlewares/validationPost');
 
 const app = express();
 
@@ -69,6 +70,7 @@ app.post(
   '/post',
   authent.verifyEmptyToken,
   authent.tokenValidation,
+  postValidation.validateCreate,
   post.newPost,
 );
 // app.put(

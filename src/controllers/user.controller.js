@@ -57,6 +57,13 @@ const getUserById = async (req, res) => {
   }
   return res.status(200).json(userId);
 };
+
+const getByEmail = async (email) => {
+  const [data] = await User.findAll({ where: { email } });
+  console.log(data);
+  return data;
+};
+
 async function verifyUser(req) {
   const { authorization } = req.headers; 
   const decoded = jwt.decode(authorization);
@@ -75,5 +82,6 @@ module.exports = {
     createUser,
     getAllUsers,
     getUserById,
+    getByEmail,
     deleteUser,
 };

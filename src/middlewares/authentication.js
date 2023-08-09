@@ -8,6 +8,7 @@ const jwtConfig = {
 };
 
 const { User } = require('../models');
+// const userService = require('../services/user.service');
 
 const verifyUserAndPassword = async (obj) => {
   const data = await User.findOne({ where: obj });
@@ -67,6 +68,7 @@ const tokenValidation = async (req, res, next) => {
   console.log('token', token);
   try {
     const decoded = verifyToken(token);
+    req.user = decoded;
     await verifyUserExists(decoded.email, 'email');
     if (!token) {
       return res.status(401).json({ message: 'Token not found' });
@@ -76,6 +78,22 @@ const tokenValidation = async (req, res, next) => {
     return res.status(401).json({ message: 'Expired or invalid token' });
   }
   next();
+  // try {
+  //   const bearerToken = req.headers.authorization;
+  //   const token = bearerToken.split(' ')[1];
+  //   // const header = req.header('Authorization');
+  //   if (!token) return res.status(401).json({ message: 'Token not found' });
+  
+  //   jwt.verify(token, secret, async (err, decode) => {
+  //     if (err) return res.status(401).json({ message: 'Expired or invalid token' });
+  //     req.email = decode.email;
+  //     const response = await userService.getUserByEmail(decode.email);
+  //     req.userId = response.id;
+  //     return next();
+  //   });
+  //   } catch (error) {
+  //     return res.status(500).json({ message: error.message });
+  //   }
 };
 
 const tokenValidationWithoutBearer = async (req, res, next) => {

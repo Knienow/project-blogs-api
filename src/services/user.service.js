@@ -10,6 +10,13 @@ const getAllUsers = async () => {
   return users;
 };
 
+const getUserByEmail = async (email) => {
+  const [data] = await User.findAll({ where: { email } });
+  console.log(data);
+  return data;
+};
+
 module.exports = {
   getAllUsers,
+  getUserByEmail,
 };

@@ -20,12 +20,9 @@ const CategoryModel = (sequelize, DataTypes) => {
       underscored: true,
     });
 
-    Category.associate = (models) => {
-      // define o tipo de relacionamento
-      Category.belongsTo(models.PostCategory,
-          // define qual a foreign key a ser criada
-            { foreignKey: 'id', as: 'categories' });
-        };
+    // Category.associate = (models) => {
+    //   Category.belongsTo(models.PostCategory, { foreignKey: 'id', as: 'categories' });
+    // };
 
     return Category;
   };
