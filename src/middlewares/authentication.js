@@ -31,8 +31,10 @@ const tokenGenerator = async (req, res, _next) => {
 const verifyToken = (token) => {
   try {
     const decoded = jwt.verify(token, secret);
+    console.log('decoded', decoded);
     return decoded;
-  } catch (err) {
+  } catch (error) {
+    console.log('erroVerify', error);
     throw new Error('Expired or invalid token');
   }
 };

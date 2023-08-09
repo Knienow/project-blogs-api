@@ -71,30 +71,30 @@ app.post(
   authent.tokenValidation,
   post.newPost,
 );
-app.put(
-  '/post/:id', 
-  authent.verifyEmptyToken,
-  authent.tokenValidation, 
-  post.editPost,
-);
-app.delete(
-  '/post/:id',
-  authent.verifyEmptyToken,
-  authent.tokenValidation,
-  post.deletePost,
-);
-app.delete(
-  '/user/me',
-  authent.verifyEmptyToken,
-  authent.tokenValidation,
-  user.deleteUser,
-);
-app.get(
-  '/post/search',
-  authent.verifyEmptyToken,
-  authent.tokenValidation,
-  post.search,
-);
+// app.put(
+//   '/post/:id', 
+//   authent.verifyEmptyToken,
+//   authent.tokenValidation, 
+//   post.editPost,
+// );
+// app.delete(
+//   '/post/:id',
+//   authent.verifyEmptyToken,
+//   authent.tokenValidation,
+//   post.deletePost,
+// );
+// app.delete(
+//   '/user/me',
+//   authent.verifyEmptyToken,
+//   authent.tokenValidation,
+//   user.deleteUser,
+// );
+// app.get(
+//   '/post/search',
+//   authent.verifyEmptyToken,
+//   authent.tokenValidation,
+//   post.search,
+// );
 
 // É importante exportar a constante `app`,
 // para que possa ser utilizada pelo arquivo `src/server.js`
